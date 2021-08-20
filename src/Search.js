@@ -11,8 +11,6 @@ class Search extends Component{
         books : [],
     }
     UpdateQuery(text){
-        
-        console.log(text);
         //hanlde late requests when the user deletes the input rapidly because the promises can return late
         setTimeout(() => {
             if(text === '')
@@ -25,33 +23,51 @@ class Search extends Component{
             }
         },2000)
         
-        BooksAPI.search(text)
-        .then((bookshelf) => {
-            console.log(bookshelf);
-            //handling empty strings to avoid errors
-            if(text === '')
-            {
-                this.setState(() => ({
-                    query : text,
-                    books : [],
-                }));
-            return;
-            }
-            //handle empty queries
-            if(bookshelf.error === "empty query")
-            {
-                this.setState(() => ({
-                    query : text,
-                    books : [],
-                }));
-                return;
-            }
-            this.setState(()=>({
+    BooksAPI.search(text)
+    .then((bookshelf) => {
+        //handling empty strings to avoid errors
+        if(text === '')
+        {
+            this.setState(() => ({
                 query : text,
-                books : bookshelf
+                books : [],
             }));
-        })
+        return;
+        }
+        //handle empty queries
+        if(bookshelf.error === "empty query")
+        {
+            this.setState(() => ({
+                query : text,
+                books : [],
+            }));
+            return;
+        }
+        const newBookshelf = bookshelf.map((book) => (this.Updateshelves(book)))
+        this.setState(()=>({
+            query : text,
+        books : newBookshelf/*.map((book) => {console.log(book)/*this.Updateshelves(book)})*/
+        }));
+    })
     }
+
+    Updateshelves = (book) =>{
+        let flag = false; 
+        (this.props.books.map((b) => {
+            if(b.id === book.id)
+            {
+                book.shelf = b.shelf;
+                flag = true;
+            }
+        }))
+        if(flag === false)
+        {
+            book.shelf = "none";
+        }
+        return book;
+    }
+
+
     render(){
         return(
         <div className="search-books">
@@ -67,6 +83,7 @@ class Search extends Component{
           </div>
                <Display
                arr = {this.state.books} 
+               onChangeShelf = {this.props.changeShelf}
                />
         </div>
         )

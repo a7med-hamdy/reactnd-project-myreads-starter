@@ -1,6 +1,29 @@
 import React from 'react';
+const shelves = ["move","currentlyReading","wantToRead","read", "none"];
+const seen = ["Move to...", "Currently Reading", "Want to Read", "Read", "None"]
+
 
 const Display = props =>{
+  const construct = (book) =>{
+    const comp = []; 
+    for(let i = 0; i < shelves.length; i++)
+    {
+      //first component is special
+      if(i === 0)
+      {
+        comp.push(<option value = {shelves[i]} hidden key = {shelves[i]}>{seen[i]}</option>);
+        continue;
+      }
+      //if the element is already on a shelf grey out this option
+      if(shelves[i] === book.shelf)
+      {
+        //comp.push(<option value = {shelves[i]} disabled key = {shelves[i]}>{seen[i]}</option>);
+        continue;
+      }
+      comp.push(<option value = {shelves[i]} key = {shelves[i]}>{seen[i]}</option>);
+    }
+    return comp;
+} 
         return(
             <div className="bookshelf-books">
               <ol className="books-grid">
@@ -16,11 +39,7 @@ const Display = props =>{
                           </div>
                           <div className="book-shelf-changer">
                               <select onChange = {(event) => props.onChangeShelf(event.target.value, book)}>
-                                <option value="move" disabled>Move to...</option>
-                                <option value="currentlyReading">Currently Reading</option>
-                                <option value="wantToRead">Want to Read</option>
-                                <option value="read">Read</option>
-                                <option value="none">None</option>
+                                {construct(book)}
                               </select>
                           </div>
                           </div>
