@@ -7,12 +7,12 @@ const Display = props =>{
             <div className="bookshelf-books">
               <ol className="books-grid">
                 {props.arr.map((book) =>(
-                    <li>
+                    <li key = {book.id}>
                     <div className="book">
                         <div className="book-top">
                         <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.smallThumbnail})` }}></div>
                         <div className="book-shelf-changer">
-                            <select>
+                            <select onChange = {(event) => props.onChangeShelf(event.target.value, book)}>
                             <option value="move">Move to...</option>
                             <option value="currentlyReading">Currently Reading</option>
                             <option value="wantToRead">Want to Read</option>
