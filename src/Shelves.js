@@ -32,28 +32,34 @@ class Shelves extends Component{
 
     render(){
         return(
-            <div>
-            <Dispaly
-            arr = {this.state.books.filter((book) => {
-                return(book.shelf === "currentlyReading");
-            })}
-            title = "Currently Reading" 
-            onChangeShelf = {this.changeShelf}
-            />
-            <Dispaly
-            arr = {this.state.books.filter((book) => {
-                return(book.shelf === "wantToRead");
-            })}
-            title = "Want to Read" 
-            onChangeShelf = {this.changeShelf}
-            />
-            <Dispaly
-            arr = {this.state.books.filter((book) => {
-                return(book.shelf === "read");
-            })}
-            title = "Read" 
-            onChangeShelf = {this.changeShelf}
-            />
+            <div className="list-books-content">
+                <div className="bookshelf">
+                    <h2 className="bookshelf-title">Currently Reading</h2>
+                    <Dispaly
+                    arr = {this.state.books.filter((book) => {
+                        return(book.shelf === "currentlyReading");
+                    })}
+                    onChangeShelf = {this.changeShelf}
+                    />
+                </div>
+                <div className="bookshelf">
+                    <h2 className="bookshelf-title">Want to Read</h2>
+                    <Dispaly
+                    arr = {this.state.books.filter((book) => {
+                        return(book.shelf === "wantToRead");
+                    })}
+                    onChangeShelf = {this.changeShelf}
+                    />
+                </div>
+                <div className="bookshelf">
+                    <h2 className="bookshelf-title">Read</h2>
+                    <Dispaly
+                    arr = {this.state.books.filter((book) => {
+                        return(book.shelf === "read");
+                    })}
+                    onChangeShelf = {this.changeShelf}
+                    />
+                </div>
             </div>
         )
     }
