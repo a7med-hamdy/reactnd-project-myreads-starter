@@ -8,11 +8,15 @@ import * as BooksAPI from './BooksAPI';
 
 class BooksApp extends React.Component {
 
-
-        state ={
+      //the state contain teh objects displayed on myreads
+      state ={
           books: [],
       }
 
+      
+      /**
+       * fetching the books from the server when the component is mounted
+       */
       componentDidMount(){
           BooksAPI.getAll()
           .then((books) => {
@@ -21,7 +25,12 @@ class BooksApp extends React.Component {
               }));
           })
       }
-
+      /**
+       * when the user wants to move a book from a shelf to another
+       * @param {
+       * } shelf 
+       * @param {*} book 
+       */
       changeShelf = (shelf, book) =>{
           BooksAPI.update(book, shelf)
           .then(() => {
@@ -37,6 +46,7 @@ class BooksApp extends React.Component {
   render() {
     return (
       <div className="app">
+        {/*adding router to the app to move between the search page and teh main page*/}
         <Route
           exact path = "/"
           render = {() => (
@@ -49,7 +59,8 @@ class BooksApp extends React.Component {
               changeShelf = {this.changeShelf}
               />
               <div className="open-search">
-                <Link
+                {/*the button to move to the search part*/}
+                <Link 
                 to = "/search"
                 className = "Link"
                 >Add a book</Link>

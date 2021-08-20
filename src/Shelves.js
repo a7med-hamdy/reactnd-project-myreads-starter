@@ -3,7 +3,9 @@ import React, { Component } from 'react';
 import Dispaly from './Display';
 
 
-
+/**
+ * shelves component take the books and changing shelves function as a prop and returns the main page of the app
+ */
 class Shelves extends Component{
     
 
@@ -37,8 +39,6 @@ class Shelves extends Component{
                     onChangeShelf = {this.props.changeShelf}
                     />
                 </div>
-                
-                
             </div>
         )
     }

@@ -2,8 +2,17 @@ import React from 'react';
 const shelves = ["move","currentlyReading","wantToRead","read", "none"];
 const seen = ["Move to...", "Currently Reading", "Want to Read", "Read", "None"]
 
-
+/**
+ * the display function constructs each book 
+ * @param {*} props 
+ * @returns each book
+ */
 const Display = props =>{
+  /**
+   * construc function builds thep drop down menu of each book
+   * @param {*} book 
+   * @returns each option
+   */
   const construct = (book) =>{
     const comp = []; 
     for(let i = 0; i < shelves.length; i++)
@@ -44,7 +53,7 @@ const Display = props =>{
                           </div>
                           </div>
                         <div className="book-title">{book.title}</div>
-                        {book.hasOwnProperty("authors") ? 
+                        {book.hasOwnProperty("authors") ? //handle books with no authors
                         <div className="book-authors">
                           {book.authors.map((author) => (<p key = {author}>{author}</p>))}
                         </div>

@@ -3,13 +3,19 @@ import { Link } from 'react-router-dom';
 import * as BooksAPI from './BooksAPI';
 import Display from './Display';
 
-
+/**
+ * serach builds the search part of the app when the url change
+ */
 class Search extends Component{
 
     state = {
         query: '',
         books : [],
     }
+    /**
+     * handles query change and update teh displayed books accordingly
+     * @param {*} text 
+     */
     UpdateQuery(text){
         //hanlde late requests when the user deletes the input rapidly because the promises can return late
         setTimeout(() => {
@@ -22,7 +28,9 @@ class Search extends Component{
             return;
             }
         },2000)
-        
+    /**
+     * request for the books form the server
+     */
     BooksAPI.search(text)
     .then((bookshelf) => {
         //handling empty strings to avoid errors
@@ -46,13 +54,18 @@ class Search extends Component{
         const newBookshelf = bookshelf.map((book) => (this.Updateshelves(book)))
         this.setState(()=>({
             query : text,
-        books : newBookshelf/*.map((book) => {console.log(book)/*this.Updateshelves(book)})*/
+        books : newBookshelf
         }));
     })
     }
-
+    /**
+     * add the 'shelf' field to each book
+     * @param {*} book 
+     * @returns updated book 
+     */
     Updateshelves = (book) =>{
-        let flag = false; 
+        let flag = false;
+        //if a book matches an owned book give it the same shelf 
         (this.props.books.map((b) => {
             if(b.id === book.id)
             {
@@ -72,6 +85,7 @@ class Search extends Component{
         return(
         <div className="search-books">
           <div className="search-books-bar">
+              {/*Back button*/}
               <Link
               to = "/"
               className = "close-search"
