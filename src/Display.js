@@ -26,7 +26,7 @@ const Display = props =>{
       //if the element is already on a shelf grey out this option
       if(shelves[i] === book.shelf)
       {
-        //comp.push(<option value = {shelves[i]} disabled key = {shelves[i]}>{seen[i]}</option>);
+        comp.push(<option value = {shelves[i]} disabled key = {shelves[i]}>{seen[i]}</option>);
         continue;
       }
       comp.push(<option value = {shelves[i]} key = {shelves[i]}>{seen[i]}</option>);
