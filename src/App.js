@@ -1,8 +1,7 @@
 import React from 'react'
 import Shelves from './Shelves'
 import './App.css'
-import { Link } from 'react-router-dom';
-import { Route } from 'react-router-dom';
+import { Link, Route } from 'react-router-dom';
 import Search from './Search';
 import * as BooksAPI from './BooksAPI';
 
@@ -34,13 +33,15 @@ class BooksApp extends React.Component {
       changeShelf = (shelf, book) =>{
           BooksAPI.update(book, shelf)
           .then(() => {
-              BooksAPI.getAll()
-              .then((books) => {
-                  this.setState(() => ({
-                      books
-                  }));
+             this.setState((currentstate) => ({
+                books : currentstate.books.map((b) => {
+                  if(b.id === book.id)
+                  {b.shelf = shelf}
+                  return(b)
+                  })
+             }))
               })
-          });
+          
           
       }
   render() {

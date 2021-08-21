@@ -33,6 +33,7 @@ const Display = props =>{
     }
     return comp;
 } 
+
         return(
             <div className="bookshelf-books">
               <ol className="books-grid">
@@ -47,7 +48,7 @@ const Display = props =>{
                             backgroundImage: `url(${book.hasOwnProperty('imageLinks') ? book.imageLinks.smallThumbnail : null})` }}>
                           </div>
                           <div className="book-shelf-changer">
-                              <select onChange = {(event) => props.onChangeShelf(event.target.value, book)}>
+                              <select value = {book.shelf} onChange = {(event) => props.onChangeShelf(event.target.value, book)}>
                                 {construct(book)}
                               </select>
                           </div>
@@ -55,7 +56,7 @@ const Display = props =>{
                         <div className="book-title">{book.title}</div>
                         {book.hasOwnProperty("authors") ? //handle books with no authors
                         <div className="book-authors">
-                          {book.authors.map((author) => (<p key = {author}>{author}</p>))}
+                          {<p>{book.authors.join(' - ')}</p>}
                         </div>
                         : 
                         <div></div>}
